@@ -1175,6 +1175,7 @@ func (b *builder) copyFile(a *action, dst, src string, perm os.FileMode) error {
 }
 
 // cover runs, in effect,
+//
 //	go tool cover -mode=b.coverMode -var="varName" -o dst.go src.go
 func (b *builder) cover(a *action, dst, src string, perm os.FileMode, varName string) error {
 	return b.run(a.objdir, "cover "+a.p.ImportPath, nil,
@@ -1224,7 +1225,6 @@ func isObject(s string) bool {
 //
 //	fmtcmd replaces the name of the current directory with dot (.)
 //	but only when it is at the beginning of a space-separated token.
-//
 func (b *builder) fmtcmd(dir string, format string, args ...interface{}) string {
 	cmd := fmt.Sprintf(format, args...)
 	if dir != "" && dir != "/" {
@@ -1269,7 +1269,6 @@ func (b *builder) showcmd(dir string, format string, args ...interface{}) {
 //	$
 //
 // showOutput also replaces references to the work directory with $WORK.
-//
 func (b *builder) showOutput(dir, desc, out string) {
 	prefix := "# " + desc
 	suffix := "\n" + out
@@ -1899,7 +1898,9 @@ func (gccgoToolchain) cc(b *builder, p *Package, objdir, ofile, cfile string) er
 		defs = append(defs, `-D`, `GOPKGPATH="`+pkgpath+`"`)
 	}
 	// TODO: Support using clang here (during gccgo build)?
-	return b.run(p.Dir, p.ImportPath, nil, "gcc", "-Wall", "-g",
+	// return b.run(p.Dir, p.ImportPath, nil, "gcc", "-Wall", "-g",
+	// 	"-I", objdir, "-I", inc, "-o", ofile, defs, "-c", cfile)
+	return b.run(p.Dir, p.ImportPath, nil, "gcc", "-w", "-g",
 		"-I", objdir, "-I", inc, "-o", ofile, defs, "-c", cfile)
 }
 

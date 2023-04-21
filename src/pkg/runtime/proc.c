@@ -1146,6 +1146,7 @@ execute(G *gp)
 	if(m->profilehz != hz)
 		runtime·resetcpuprofiler(hz);
 
+	runtime·printf("execute: goid(%d)\n", gp->goid);
 	runtime·gogo(&gp->sched);
 }
 
@@ -1353,6 +1354,7 @@ top:
 		goto top;
 	}
 
+	runtime·printf("schedule: goid(%d)\n", gp->goid);
 	execute(gp);
 }
 

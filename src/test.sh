@@ -1,0 +1,1 @@
+/data/home/github/mygo/bin/go run /data/home/github/mygo/src/test/test1.go

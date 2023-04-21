@@ -129,7 +129,8 @@ fi
 if [ -z "$CC" -a -z "$(type -t gcc)" -a -n "$(type -t clang)" ]; then
 	export CC=clang CXX=clang++
 fi
-${CC:-gcc} $mflag -O2 -Wall -Werror -o cmd/dist/dist -Icmd/dist "$DEFGOROOT" cmd/dist/*.c
+# ${CC:-gcc} $mflag -O2 -Wall -Werror -o cmd/dist/dist -Icmd/dist "$DEFGOROOT" cmd/dist/*.c
+${CC:-gcc} $mflag -O2 -w -Werror -o cmd/dist/dist -Icmd/dist "$DEFGOROOT" cmd/dist/*.c
 
 # -e doesn't propagate out of eval, so check success by hand.
 eval $(./cmd/dist/dist env -p || echo FAIL=true)

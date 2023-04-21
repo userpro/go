@@ -8,6 +8,7 @@ if [ ! -f make.bash ]; then
 	echo 'all.bash must be run from $GOROOT/src' 1>&2
 	exit 1
 fi
+export CGO_ENABLED=0 # TODO
 OLDPATH="$PATH"
 . ./make.bash "$@" --no-banner
 bash run.bash --no-rebuild
